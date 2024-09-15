@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { VendorI } from "../../interface";
 import Vendor from "../../Schema/VendorSchema";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 const VendorSignup = async (req: Request, res: Response) => {
   const { name, email, password, phone, address, countryCode }: VendorI =
     req.body;
