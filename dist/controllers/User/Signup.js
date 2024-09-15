@@ -21,18 +21,20 @@ const Signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     try {
         const existingUser = yield UserSchema_1.default.findOne({ number });
+        console.log("existing USer", existingUser);
         if (existingUser) {
             return res.status(400).json({ message: "Number already registered" });
         }
+        console.log("hellow ");
         const newUser = new UserSchema_1.default({ number });
-        // Save new user to the database
+        console.log("new USer", newUser);
         const savedUser = yield newUser.save();
+        console.log("saved User", savedUser);
         if (!savedUser) {
             return res.status(400).json({ message: "Failed to create new User" });
         }
-        // Generate token
         const token = (0, generateToken_1.default)(number, newUser._id.toString());
-        // Send successful response
+        console.log("token ", token);
         return res.status(201).json({
             message: "User registered successfully",
             token: token,

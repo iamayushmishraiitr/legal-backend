@@ -11,24 +11,23 @@ const Signup = async (req: Request, res: Response) => {
   }
 
   try {
-
     const existingUser: UserI | null = await User.findOne({ number });
+    console.log("existing USer" ,existingUser)
     if (existingUser) {
       return res.status(400).json({ message: "Number already registered" });
     }
-
+console.log("hellow ")
     const newUser = new User({ number });
-
-    // Save new user to the database
+    console.log("new USer" , newUser)
     const savedUser = await newUser.save();
+    console.log("saved User" ,savedUser)
     if (!savedUser) {
       return res.status(400).json({ message: "Failed to create new User" });
     }
 
-    // Generate token
-    const token = generateToken(number, newUser._id.toString());
 
-    // Send successful response
+    const token = generateToken(number, newUser._id.toString());
+console.log("token " , token)
     return res.status(201).json({
       message: "User registered successfully",
       token: token,
