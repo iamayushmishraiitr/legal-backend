@@ -13,13 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const VendorSchema_1 = __importDefault(require("../../Schema/VendorSchema"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const VendorSignup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password, phone, address, countryCode } = req.body;
     if (!name || !email || !password || !phone || !address || !countryCode)
         return res.status(400).json({ message: "Send Complete Data" });
-    const salt = yield bcrypt_1.default.genSalt(10);
-    const hashpassword = yield bcrypt_1.default.hash(password, salt);
+    const salt = yield bcryptjs_1.default.genSalt(10);
+    const hashpassword = yield bcryptjs_1.default.hash(password, salt);
     try {
         const res1 = yield VendorSchema_1.default.findOne({ email });
         if (res1)

@@ -1,5 +1,5 @@
 import { Request,Response } from "express"
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import Vendor from "../../Schema/VendorSchema";
 import { VendorI } from "../../interface";
 import generateToken from "../../Jwt/generateToken";
