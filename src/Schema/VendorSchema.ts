@@ -26,10 +26,7 @@ const VendorSchema = new mongoose.Schema({
     require: true,
     unique: true,
   },
-  countryCode: {
-    type: String,
-    required: true,
-  },
+
   Users: [
     {
       type: mongoose.Schema.Types.ObjectId,

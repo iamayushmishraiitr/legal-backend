@@ -3,9 +3,9 @@ import { VendorI } from "../../interface";
 import Vendor from "../../Schema/VendorSchema";
 import bcrypt from "bcryptjs";
 const VendorSignup = async (req: Request, res: Response) => {
-  const { name, email, password, phone, address, countryCode }: VendorI =
+  const { name, email, password, phone, address }: VendorI =
     req.body;
-  if (!name || !email || !password || !phone || !address || !countryCode)
+  if (!name || !email || !password || !phone || !address )
     return res.status(400).json({ message: "Send Complete Data" });
   const salt = await bcrypt.genSalt(10);
   const hashpassword = await bcrypt.hash(password, salt);
@@ -26,7 +26,7 @@ const VendorSignup = async (req: Request, res: Response) => {
       password: hashpassword,
       phone,
       address,
-      countryCode,
+      
     });
     const newVendor = await vendor.save();
     if (newVendor)
