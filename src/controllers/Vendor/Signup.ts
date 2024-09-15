@@ -34,6 +34,7 @@ const VendorSignup = async (req: Request, res: Response) => {
         .status(201)
         .json({ message: "User registered successfully", user: newVendor });
   } catch (e) {
+    console.log(e);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
