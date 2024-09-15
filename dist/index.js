@@ -15,6 +15,9 @@ const entryData_1 = __importDefault(require("./routes/user/entryData"));
 const getVendors_1 = __importDefault(require("./routes/user/getVendors"));
 const userData_1 = __importDefault(require("./routes/vendor/userData"));
 const app = (0, express_1.default)();
+app.get('/', (req, res) => {
+    res.send("Hellow everyOne ");
+});
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
