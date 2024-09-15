@@ -21,8 +21,8 @@ app.get('/', (req, res) => {
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
-app.use("./userLogin", userLogin_1.default);
-app.use("./userSignup", userSignup_1.default);
+app.use("/userLogin", userLogin_1.default);
+app.use("/userSignup", userSignup_1.default);
 app.use("/vendorSignup", vendorSignup_1.default);
 app.use("/vendorLogin", vendorLogin_1.default);
 app.use("/entry", entryData_1.default);

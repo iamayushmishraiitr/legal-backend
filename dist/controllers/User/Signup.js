@@ -16,26 +16,31 @@ const UserSchema_1 = __importDefault(require("../../Schema/UserSchema"));
 const generateToken_1 = __importDefault(require("../../Jwt/generateToken"));
 const Signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { number } = req.body;
-    if (!number)
+    if (!number) {
         return res.status(400).json({ message: "Send Complete Data" });
-    try {
-        const data = yield UserSchema_1.default.findOne({ number: number });
-        if (data)
-            return res.status(400).json({ message: "Number already registered" });
-        const newUser = new UserSchema_1.default({
-            number,
-        });
-        console.log(" Adwasdadadsadsadsadasds ");
-        // const newuser = await newUser.save();
-        // if (!newuser)
-        //   return res.status(400).json({ message: "Faild to create new User" });
-        const token = (0, generateToken_1.default)(number, JSON.stringify(newUser._id));
-        return res
-            .status(201)
-            .json({ message: "User registered successfully", token: token });
     }
-    catch (err) {
-        res.status(500).json({ message: "Internal Server Error" });
+    try {
+        const existingUser = yield UserSchema_1.default.findOne({ number });
+        if (existingUser) {
+            return res.status(400).json({ message: "Number already registered" });
+        }
+        const newUser = new UserSchema_1.default({ number });
+        // Save new user to the database
+        const savedUser = yield newUser.save();
+        if (!savedUser) {
+            return res.status(400).json({ message: "Failed to create new User" });
+        }
+        // Generate token
+        const token = (0, generateToken_1.default)(number, newUser._id.toString());
+        // Send successful response
+        return res.status(201).json({
+            message: "User registered successfully",
+            token: token,
+        });
+    }
+    catch (error) {
+        console.error("Error during user signup:", error);
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 });
 exports.default = Signup;

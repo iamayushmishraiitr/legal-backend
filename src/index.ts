@@ -16,8 +16,8 @@ app.get('/', (req:any,res:any)=>{
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-app.use("./userLogin", userLoginRoute);
-app.use("./userSignup", userSignupRoute);
+app.use("/userLogin", userLoginRoute);
+app.use("/userSignup", userSignupRoute);
 app.use("/vendorSignup", vendorSignupRoute);
 app.use("/vendorLogin", vendorLoginRoute);
 app.use("/entry", entryDataRoute);
