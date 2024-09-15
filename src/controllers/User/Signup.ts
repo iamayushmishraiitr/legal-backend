@@ -6,7 +6,7 @@ import generateToken from "../../Jwt/generateToken";
 const Signup = async (req: Request, res: Response) => {
   const { number ,name, dateOfBirth }: { number: string ,name:string,dateOfBirth:string } = req.body;
 
-  if (!number) {
+  if (!number || !name || !dateOfBirth) {
     return res.status(400).json({ message: "Send Complete Data" });
   }
 
@@ -16,7 +16,7 @@ const Signup = async (req: Request, res: Response) => {
     if (existingUser) {
       return res.status(400).json({ message: "Number already registered" });
     }
-console.log("hellow ")
+ console.log("hellow ")
     const newUser = new User({ number ,name,dateOfBirth });
     console.log("new USer" , newUser)
     const savedUser = await newUser.save();
