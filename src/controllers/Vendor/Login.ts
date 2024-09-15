@@ -15,6 +15,7 @@ const vendorLogin= async(req:Request,res:Response)=>{
         res.cookie('token', token, {
          httpOnly: true,  
          secure: false,    
+         domain:"localhost" ,
          maxAge: 60*1000,
        })
          return res.status(201).json({message:"Login Successful"})
