@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const UserSchema_1 = __importDefault(require("../../Schema/UserSchema"));
 const generateToken_1 = __importDefault(require("../../Jwt/generateToken"));
 const Signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { number } = req.body;
+    const { number, name, dateOfBirth } = req.body;
     if (!number) {
         return res.status(400).json({ message: "Send Complete Data" });
     }
@@ -26,7 +26,7 @@ const Signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(400).json({ message: "Number already registered" });
         }
         console.log("hellow ");
-        const newUser = new UserSchema_1.default({ number });
+        const newUser = new UserSchema_1.default({ number, name, dateOfBirth });
         console.log("new USer", newUser);
         const savedUser = yield newUser.save();
         console.log("saved User", savedUser);

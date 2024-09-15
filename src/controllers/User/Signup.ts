@@ -4,7 +4,7 @@ import { UserI } from "../../interface";
 import generateToken from "../../Jwt/generateToken";
 
 const Signup = async (req: Request, res: Response) => {
-  const { number }: { number: string } = req.body;
+  const { number ,name, dateOfBirth }: { number: string ,name:string,dateOfBirth:string } = req.body;
 
   if (!number) {
     return res.status(400).json({ message: "Send Complete Data" });
@@ -17,7 +17,7 @@ const Signup = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Number already registered" });
     }
 console.log("hellow ")
-    const newUser = new User({ number });
+    const newUser = new User({ number ,name,dateOfBirth });
     console.log("new USer" , newUser)
     const savedUser = await newUser.save();
     console.log("saved User" ,savedUser)
