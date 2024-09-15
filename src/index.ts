@@ -10,6 +10,9 @@ import entryDataRoute from "./routes/user/entryData";
 import getVendorsRoute from "./routes/user/getVendors"
 import userDataRoute from "./routes/vendor/userData";
 const app = express();
+app.get('/', (req:any,res:any)=>{
+  res.send("Hellow everyOne ")
+})
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
