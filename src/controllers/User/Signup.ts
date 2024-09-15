@@ -24,8 +24,6 @@ console.log("hellow ")
     if (!savedUser) {
       return res.status(400).json({ message: "Failed to create new User" });
     }
-
-
     const token = generateToken(number, newUser._id.toString());
 console.log("token " , token)
     return res.status(201).json({
