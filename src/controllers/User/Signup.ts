@@ -4,9 +4,9 @@ import { UserI } from "../../interface";
 import generateToken from "../../Jwt/generateToken";
 
 const Signup = async (req: Request, res: Response) => {
-  const { number ,name, dateOfBirth }: { number: string ,name:string,dateOfBirth:string } = req.body;
+  const { number ,name, age ,gender}: { number: string ,name:string,age:string ,gender:string} = req.body;
 
-  if (!number || !name || !dateOfBirth) {
+  if (!number || !name || !age || !gender) {
     return res.status(400).json({ message: "Send Complete Data" });
   }
 
@@ -17,7 +17,7 @@ const Signup = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Number already registered" });
     }
  console.log("hellow ")
-    const newUser = new User({ number ,name,dateOfBirth });
+    const newUser = new User({ number ,name,age ,gender });
     console.log("new USer" , newUser)
     const savedUser = await newUser.save();
     console.log("saved User" ,savedUser)
@@ -25,7 +25,7 @@ const Signup = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Failed to create new User" });
     }
     const token = generateToken(number, newUser._id.toString());
-console.log("token " , token)
+ console.log("token " , token)
     return res.status(201).json({
       message: "User registered successfully",
       token: token,

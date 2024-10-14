@@ -9,10 +9,12 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
-  dateOfBirth:{
+  age:{
       type: String ,
+  } ,
+  gender:{
+    type:String
   }
-  
  
 });
 const User = mongoose.model("User", UserSchema);

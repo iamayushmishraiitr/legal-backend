@@ -9,11 +9,15 @@ import userSignupRoute from "./routes/user/userSignup";
 import entryDataRoute from "./routes/user/entryData";
 import getVendorsRoute from "./routes/user/getVendors"
 import userDataRoute from "./routes/vendor/userData";
+import User from "./Schema/UserSchema";
 const app = express();
 app.get('/', (req:any,res:any)=>{
   res.send("Hellow everyOne ")
 })
-app.use(cors());
+app.use(cors({
+  origin:"http://localhost:5173" ,
+  credentials:true
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/userLogin", userLoginRoute);
@@ -23,6 +27,26 @@ app.use("/vendorLogin", vendorLoginRoute);
 app.use("/entry", entryDataRoute);
 app.use("/vendors",getVendorsRoute)
 app.use("/users",userDataRoute)
+app.get("/users-by-age", async (req:any, res:any) => {
+  try {
+    const results = await User.aggregate([
+      {
+        $bucket: {
+          groupBy: "$age",
+          boundaries: [21, 26, Infinity], 
+          default: "Other",
+          output: {
+            totalCount: { $sum: 1 }, 
+          },
+        },
+      },
+    ]);
+
+    res.json(results);
+  } catch (error:any) {
+    res.status(500).json({ message: error.message });
+  }
+});
 const PORT = 3000;
 app.listen(PORT, () => {
   connectTodb();

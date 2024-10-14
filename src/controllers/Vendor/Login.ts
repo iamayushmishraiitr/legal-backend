@@ -12,13 +12,12 @@ const vendorLogin= async(req:Request,res:Response)=>{
         const compare=  await bcrypt.compare(password,user.password) ;
         if(!compare) return res.status(400).json({message:"Incorrect Password"}) ;
         const token= generateToken(user.name,user._id)
-        res.cookie('token', token, {
-         httpOnly: true,  
-         secure: false,    
-         domain:"localhost" ,
-         maxAge: 60*1000,
-       })
-         return res.status(201).json({message:"Login Successful"})
+        res.cookie('token',token, {
+          path: '/',
+          secure: false,   
+          expires: new Date(Date.now() + 3600000) 
+        });
+         return res.status(201).json({message:"Login Successful" , token:token}) ;
    }catch (e) {
       res.status(500).json({ message: "Internal Server Error" });
     }
